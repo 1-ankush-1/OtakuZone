@@ -1,29 +1,30 @@
-import HeaderItem from "./headerItem";
+import { Nav } from "react-bootstrap";
 
 const headerItemList = [{
     id: "1",
     title: "HOME",
-    goto: "home"
+    goto: "/home"
 }, {
     id: "2",
     title: "STORE",
-    goto: "store"
+    goto: "/store"
 }, {
     id: "3",
     title: "ABOUT",
-    about: "about"
+    about: "/about"
 }]
 
 const HeaderItems = () => {
     return (
-        <ul>
+        <Nav className="me-auto">
             {headerItemList.map((item) => (
-                <HeaderItem
+                <Nav.Link
                     key={item.id}
-                    title={item.title}
-                    goto={item.goto} />
+                    href={item.goto}
+                >{item.title}
+                </Nav.Link>
             ))}
-        </ul>
+        </Nav>
     )
 }
 
