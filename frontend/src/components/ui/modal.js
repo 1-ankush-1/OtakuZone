@@ -1,16 +1,16 @@
 import ReactDom from "react-dom";
+import React from "react";
 
 const BackDrop = (props) => {
     return (
-        <div onClick={props.onClose}></div>
+        <div className="fixed inset-0 bg-black opacity-50" onClick={props.onClose}></div>
     )
 }
 
-
 const ModalOverlay = (props) => {
     return (
-        <div>
-            {props.children}
+        <div className="fixed inset-0 flex items-center justify-center">
+            <div>{props.children}</div>
         </div>
     )
 }

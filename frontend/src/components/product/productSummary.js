@@ -1,30 +1,19 @@
 import "../../styles/product.css"
+import Carousel from "../ui/carousel";
 
 const CarouselItemList = [
-    { id: "1", title: "Slide One", description: "description", imgUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png" },
-    { id: "2", title: "Slide Two", description: "description", imgUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png" },
+    { id: "1", title: "Posters", description: "Anime posters to decorate your room.", imgUrl: "./images/setPotrait.png" },
+    { id: "2", title: "Portraits", description: "Anime character portraits for your collection.", imgUrl: "./images/setPotaitMain.png" },
+    { id: "3", title: "Keychains", description: "Anime-themed keychains to show your love for your favorite characters.", imgUrl: "./images/setKeyChain.png" },
+    { id: "4", title: "Hoodies", description: "Stylish hoodies featuring anime designs.", imgUrl: "./images/setHoddie.png" },
 ]
 
 const ProductSummary = () => {
     return (
-        <section className="product-summary">
-            {/* <Carousel>
-                {CarouselItemList.map((item) => (
-                    <Carousel.Item key={item.id} >
-                        <img
-                            className="d-block w-100"
-                            src={item.imgUrl}
-                            alt={item.title}
-                        />
-                        <Carousel.Caption>
-                            <h3>{item.title}</h3>
-                            <p>{item.description}</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                ))}
-            </Carousel> */}
+        <section className="product-summary lg:px-20 lg:py-4 px-2 py-2">
+            <Carousel items={CarouselItemList} />
         </section>
-    )
-}
+    );
+};
 
 export default ProductSummary;

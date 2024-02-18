@@ -26,7 +26,7 @@ const productsArr = [
 ]
 const AvailableProducts = () => {
     return (
-        <section className="products">
+        <section className="products lg:px-20 lg:py-4 px-2 py-2">
             <ul>
                 {productsArr.map(prod => <ProductItem title={prod.title} price={prod.price} url={prod.imageUrl} />)}
             </ul>
