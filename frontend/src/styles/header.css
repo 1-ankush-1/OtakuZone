@@ -1,0 +1,11 @@
+.main-img {
+  width: 100%;
+  height: 15rem;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.main-img img {
+  width: 110%;
+  height: 100%;
+}

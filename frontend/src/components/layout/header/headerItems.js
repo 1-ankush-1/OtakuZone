@@ -1,4 +1,6 @@
-import { Nav } from "react-bootstrap";
+import HamBurger from "../../Icons/hamBurger";
+import HeaderItem from "./headerItem";
+import { useState } from "react";
 
 const headerItemList = [{
     id: "1",
@@ -11,21 +13,48 @@ const headerItemList = [{
 }, {
     id: "3",
     title: "ABOUT",
-    about: "/about"
+    goto: "/about"
 }]
 
 const HeaderItems = () => {
-    return (
-        <Nav className="me-auto">
-            {headerItemList.map((item) => (
-                <Nav.Link
-                    key={item.id}
-                    href={item.goto}
-                >{item.title}
-                </Nav.Link>
-            ))}
-        </Nav>
-    )
-}
+    const [showMenu, setShowMenu] = useState(false);
 
+    const toggleMenu = () => {
+        setShowMenu(!showMenu);
+    };
+
+    return (
+        <div className="lg:flex relative items-center gap-5">
+            <ul className="lg:flex gap-5 hidden">
+                {headerItemList.map((item) => (
+                    <li key={item.id}>
+                        <HeaderItem
+                            href={item.goto}
+                            title={item.title}
+                            className={"text-white hover:text-gray-300 text-lg"}
+                        />
+                    </li>
+                ))}
+            </ul>
+            <div className="lg:hidden" onClick={toggleMenu}>
+                <HamBurger />
+            </div>
+            {showMenu && (
+                <ul className="lg:hidden absolute flex flex-col bg-white rounded-sm">
+                    {headerItemList.map((item) => (
+                        <li key={item.id}>
+                            <HeaderItem
+                                href={item.goto}
+                                title={item.title}
+                                className={"text-black hover:text-gray-400 p-3 text-sm"}
+                                onClose={toggleMenu}
+                            />
+                            <hr />
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+};
 export default HeaderItems;
