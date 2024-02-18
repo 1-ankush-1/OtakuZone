@@ -9,13 +9,13 @@ const CartButton = () => {
     const handleOpenCartModal = () => setOpenCartModal(true)
     const handleCloseCartModal = () => setOpenCartModal(false)
 
-
     return (
         <>
             <div onClick={handleOpenCartModal} className="flex items-center relative hover:text-gray-300 text-white">
                 <FaShoppingCart className="cursor-pointer" />
                 <p className="absolute bottom-3 left-5 text-sm">0</p>
             </div>
+            {/*route of cart*/}
             {openCartModal && <Cart onClose={handleCloseCartModal} />}
         </>
     )

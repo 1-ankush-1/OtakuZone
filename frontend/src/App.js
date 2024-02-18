@@ -1,4 +1,5 @@
 import './App.css';
+import Cart from './components/cart/cart';
 import Footer from './components/layout/footer/footer';
 import Header from './components/layout/header/header';
 import Products from './components/product/products';
@@ -8,7 +9,8 @@ function App() {
     <>
       <Header />
       <main>
-        <Products />
+        {/* <Products /> */}
+        <Cart />
       </main>
       <Footer />
     </>

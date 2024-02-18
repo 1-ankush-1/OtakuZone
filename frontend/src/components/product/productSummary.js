@@ -10,7 +10,8 @@ const CarouselItemList = [
 
 const ProductSummary = () => {
     return (
-        <section className="product-summary lg:px-20 lg:py-4 px-2 py-2">
+        //lg:px-20 lg:py-4 px-2 py-2
+        <section className="product-summary pt-0.5">
             <Carousel items={CarouselItemList} />
         </section>
     );
