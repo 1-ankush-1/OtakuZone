@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ArrowLeftIcon from "../Icons/leftArrow";
 import CartItems from "./cartItems";
 import { CartContext } from "../../stores/cartContext.js"
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const [checkoutAmount, setCheckoutAmount] = useState(0);
@@ -30,13 +31,13 @@ const Cart = () => {
     return (
         <div className="px-4 py-6 mx-auto max-w-6xl">
             <div className="flex justify-between items-center mb-6 ">
-                <a className="flex items-center gap-2 text-sm font-medium underline ml-auto" href="#">
+                <Link className="flex items-center gap-2 text-sm font-medium underline ml-auto" to="/">
                     <ArrowLeftIcon className="w-4 h-4 rotate-180 mr-1.5" />
                     Continue shopping
-                </a>
+                </Link>
             </div>
             <div className="grid gap-6">
-                <div className="overflow-auto w-full border rounded-lg border-gray-200">
+                <div className="overflow-auto w-full border rounded-lg border-gray-200 p-4">
                     <CartItems
                         items={items}
                         onAdd={cartCtx.addItem}
@@ -75,11 +76,11 @@ const Cart = () => {
                             Proceed to checkout
                         </button>
                     </a>
-                    <a className="flex-1" href="#">
+                    <Link className="flex-1" to="/">
                         <button className="w-full px-4 py-3 rounded-lg  text-black border-gray-300 whitespace-nowrap" size="lg" variant="outline">
                             Continue shopping
                         </button>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

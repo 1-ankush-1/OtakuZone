@@ -110,7 +110,7 @@ const CartReducer = (state, action) => {
             if (existingCartItem) {
                 updatedItems = state.items.map(item => {
                     if (item.id === action.item.id) {
-                        return { ...item, ["quantity"]: action.item.quantity }
+                        return { ...item, "quantity": action.item.quantity }
                     }
                     return item;
                 });
