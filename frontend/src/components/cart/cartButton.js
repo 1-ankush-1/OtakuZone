@@ -1,22 +1,27 @@
-import { useState } from "react";
-import Cart from "./cart";
+import { useContext } from "react";
+import { CartContext } from "../../stores/cartContext";
 import "../../styles/cart.css"
 import { FaShoppingCart } from "react-icons/fa";
 
 const CartButton = () => {
-    const [openCartModal, setOpenCartModal] = useState(false);
 
-    const handleOpenCartModal = () => setOpenCartModal(true)
-    const handleCloseCartModal = () => setOpenCartModal(false)
+    const cartCtx = useContext(CartContext);
+
+    //getTotalQuantity
+    const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+        return curNumber + Number(item.quantity);
+    }, 0)
+
+    const handleOpenCartModal = () => {
+        
+    }
 
     return (
         <>
             <div onClick={handleOpenCartModal} className="flex items-center relative hover:text-gray-300 text-white">
                 <FaShoppingCart className="cursor-pointer" />
-                <p className="absolute bottom-3 left-5 text-sm">0</p>
+                <p className="absolute bottom-3 left-5 text-sm">{numberOfCartItems}</p>
             </div>
-            {/*route of cart*/}
-            {openCartModal && <Cart onClose={handleCloseCartModal} />}
         </>
     )
 }
