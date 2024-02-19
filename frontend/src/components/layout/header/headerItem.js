@@ -1,6 +1,8 @@
+import { NavLink } from "react-router-dom";
+
 const HeaderItem = (props) => {
     return (
-        <a href={props.href} className={props.className} onClick={props?.onClose}>{props.title}</a>
+        <NavLink to={props.href} className={({ isActive }) => isActive ? `${props.className + " text-white"}` : props.className} onClick={props?.onClose} end>{props.title}</NavLink>
     )
 }
 

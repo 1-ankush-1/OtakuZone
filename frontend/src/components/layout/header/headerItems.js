@@ -5,7 +5,7 @@ import { useState } from "react";
 const headerItemList = [{
     id: "1",
     title: "HOME",
-    goto: "/home"
+    goto: "/"
 }, {
     id: "2",
     title: "STORE",
@@ -31,7 +31,7 @@ const HeaderItems = () => {
                         <HeaderItem
                             href={item.goto}
                             title={item.title}
-                            className={"text-white hover:text-gray-300 text-lg"}
+                            className={"hover:text-gray-300 text-lg"}
                         />
                     </li>
                 ))}
