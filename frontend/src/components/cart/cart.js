@@ -53,19 +53,19 @@ const Cart = () => {
                     <div className="grid gap-2 text-sm">
                         <div className="flex justify-between items-center">
                             <span>Subtotal</span>
-                            <span>{totalAmount}</span>
+                            <span>{`₹${totalAmount}`}</span>
                         </div>
                         <div className="flex justify-between items-center">
                             <span>Shipping</span>
-                            <span>{shippingAmount}</span>
+                            <span>{`₹${shippingAmount}`}</span>
                         </div>
                         <div className="flex justify-between items-center">
                             <span>Coupon code</span>
-                            <span className="cursor-pointer">{couponAmount}</span>
+                            <span className="cursor-pointer">{`₹${couponAmount}`}</span>
                         </div>
                         <div className="flex justify-between items-center">
                             <span>TotalAmount</span>
-                            <span className="cursor-pointer">{checkoutAmount}</span>
+                            <span className="cursor-pointer">{`₹${checkoutAmount}`}</span>
                         </div>
                     </div>
                 </div>

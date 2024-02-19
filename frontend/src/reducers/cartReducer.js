@@ -9,6 +9,7 @@ const CartReducer = (state, action) => {
     let existingCartItemIndex;
     let existingCartItem;
     let updatedItems;
+    let updatedShippingAmount;
 
     switch (action.type) {
         case "ADD_ITEM":
@@ -30,7 +31,18 @@ const CartReducer = (state, action) => {
                 updatedItems = state.items.concat(action.item);
             }
 
-            return { items: updatedItems, totalAmount: updatedTotalAmount };
+            if (Number(updatedTotalAmount) < 999) {
+                updatedShippingAmount = 99;
+            } else {
+                updatedShippingAmount = 0;
+            }
+
+            return {
+                items: updatedItems,
+                totalAmount: updatedTotalAmount,
+                couponAmount: 0,
+                shippingAmount: updatedShippingAmount
+            };
 
         case "REDUCE_ITEM":
             //find the item idx
@@ -52,7 +64,17 @@ const CartReducer = (state, action) => {
 
                 //update totalamount
                 updatedTotalAmount = updatedItems.reduce((prev, item) => prev + (item.price * item.quantity), 0);
-                return { items: updatedItems, totalAmount: updatedTotalAmount };
+                if (Number(updatedTotalAmount) < 999) {
+                    updatedShippingAmount = 99;
+                } else {
+                    updatedShippingAmount = 0;
+                }
+                return {
+                    items: updatedItems,
+                    totalAmount: updatedTotalAmount,
+                    couponAmount: 0,
+                    shippingAmount: updatedShippingAmount
+                };
             }
             return state
 
@@ -65,8 +87,19 @@ const CartReducer = (state, action) => {
                 updatedItems = state.items.filter(item => item.id !== action.id);
                 //update totalamount
                 updatedTotalAmount = updatedItems.reduce((prev, item) => prev + (item.price * item.quantity), 0);
-                return { items: updatedItems, totalAmount: updatedTotalAmount };
+                if (Number(updatedTotalAmount) < 999) {
+                    updatedShippingAmount = 99;
+                } else {
+                    updatedShippingAmount = 0;
+                }
+                return {
+                    items: updatedItems,
+                    totalAmount: updatedTotalAmount,
+                    couponAmount: 0,
+                    shippingAmount: updatedShippingAmount
+                };
             }
+
             return state;
         case "INCREASE_ITEM":
             //find the item idx
@@ -83,7 +116,17 @@ const CartReducer = (state, action) => {
                 });
                 //update totalamount
                 updatedTotalAmount = updatedItems.reduce((prev, item) => prev + (item.price * item.quantity), 0);
-                return { items: updatedItems, totalAmount: updatedTotalAmount };
+                if (Number(updatedTotalAmount) < 999) {
+                    updatedShippingAmount = 99;
+                } else {
+                    updatedShippingAmount = 0;
+                }
+                return {
+                    items: updatedItems,
+                    totalAmount: updatedTotalAmount,
+                    couponAmount: 0,
+                    shippingAmount: updatedShippingAmount
+                };
             }
             return state;
         case "APPLY_COUPON":
