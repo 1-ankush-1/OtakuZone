@@ -25,7 +25,7 @@ const HeaderItems = () => {
 
     return (
         <div className="lg:flex relative items-center gap-5">
-            <ul className="lg:flex gap-5 hidden">
+            <ul className="lg:flex gap-5 hidden text-white">
                 {headerItemList.map((item) => (
                     <li key={item.id}>
                         <HeaderItem

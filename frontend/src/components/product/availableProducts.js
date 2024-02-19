@@ -26,10 +26,18 @@ const productsArr = [
 ]
 const AvailableProducts = () => {
     return (
-        <section className="products lg:px-20 lg:py-4 px-2 py-2">
-            <ul>
-                {productsArr.map(prod => <ProductItem title={prod.title} price={prod.price} url={prod.imageUrl} />)}
-            </ul>
+        <section className="w-full py-12 md:py-24 lg:py-12 border-t">
+            <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
+                <div className="space-y-3">
+                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Featured Products</h2>
+                    <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                        Check out our hand-picked selection of featured products.
+                    </p>
+                </div>
+                <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
+                    {productsArr.map(prod => <ProductItem title={prod.title} price={prod.price} url={prod.imageUrl} />)}
+                </ul>
+            </div>
         </section>
     )
 }
