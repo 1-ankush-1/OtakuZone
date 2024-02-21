@@ -3,6 +3,7 @@ import Header from "../components/layout/header/header";
 import About from "../components/pages/about/about";
 import Cart from "../components/cart/cart";
 import Products from "../components/product/products"
+import Store from "../components/pages/store/store";
 
 
 const Router = () => {
@@ -13,6 +14,7 @@ const Router = () => {
                 <Routes>
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/store" element={<Store />} />
                     <Route path="/" element={<Products />} />
                 </Routes>
             </main>

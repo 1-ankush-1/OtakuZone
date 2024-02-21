@@ -1,5 +1,4 @@
-import Card from "../ui/card";
-import ProductItem from "./productItem";
+import Card from "../../../ui/card"
 
 const productsArr = [
     {
@@ -25,15 +24,12 @@ const productsArr = [
     }
 
 ]
-const AvailableProducts = () => {
+const Accessories = () => {
     return (
-        <section className="w-full py-12 md:py-24 lg:py-12 border-t">
+        <section id="accessories" className="w-full py-8 md:py-16 lg:py-24 border-t">
             <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
                 <div className="space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Featured Products</h2>
-                    <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                        Check out our hand-picked selection of featured products.
-                    </p>
+                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Accessories</h2>
                 </div>
                 <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
                     {productsArr.map(prod => <Card title={prod.title} price={prod.price} url={prod.imageUrl} />)}
@@ -43,4 +39,4 @@ const AvailableProducts = () => {
     )
 }
 
-export default AvailableProducts;
+export default Accessories
