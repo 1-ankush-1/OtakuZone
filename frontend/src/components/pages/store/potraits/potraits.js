@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Card from "../../../ui/card";
+import { Link } from "react-router-dom";
 
 const Potraits = () => {
     const [potratis, setPotraits] = useState([]);
@@ -50,14 +51,19 @@ const Potraits = () => {
                 </div>
                 <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-2 lg:gap-12">
                     {!isLoading && potratis.length > 0 && potratis?.map(prod =>
-                    (<Card
-                        key={prod.id}
-                        title={prod.title}
-                        price={Number(prod.price)}
-                        url={prod.image}
-                        rating={prod?.rating?.rate | 0}
-                        usersRated={prod?.rating?.count | 0}
-                    />))}
+                    (
+                        <Link to={`../potrait-detail/${prod.id}`}>
+                            <Card
+                                key={prod.id}
+                                title={prod.title}
+                                price={Number(prod.price)}
+                                url={prod.image}
+                                rating={prod?.rating?.rate | 0}
+                                usersRated={prod?.rating?.count | 0}
+
+                            />
+                        </Link>
+                    ))}
                     {!isLoading && !error && potratis.length <= 0 && <p>no potarits found</p>}
                     {isLoading && "Loading..."}
                     {!isLoading && error && <p>{error}</p>}
