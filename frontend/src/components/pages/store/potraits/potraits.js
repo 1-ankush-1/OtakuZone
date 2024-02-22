@@ -4,14 +4,24 @@ import Card from "../../../ui/card";
 const Potraits = () => {
     const [potratis, setPotraits] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const fetchAllPotratis = async () => {
         setIsLoading(true);
-        const response = await fetch("https://fakestoreapi.com/products/category/jewelery");
-        const potrait = await response.json();
-        setPotraits((prev) => {
-            return potrait
-        })
+        setError(null);
+        try {
+            const response = await fetch("https://fakestoreapi.com/products/category/jewelery");
+            if (!response.ok) {
+                throw new Error("Something went wrong")
+            }
+            const potrait = await response.json();
+            setPotraits((prev) => {
+                return potrait
+            })
+        } catch (err) {
+            console.log(err);
+            setError(err.message)
+        }
         setIsLoading(false);
     }
 
@@ -27,8 +37,9 @@ const Potraits = () => {
                 </div>
                 <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
                     {!isLoading && potratis?.map(prod => <Card title={prod.title} price={prod.price} url={prod.image} />)}
-                    {!isLoading && potratis.length <= 0 && <p>no potarits found</p>}
+                    {!isLoading && !error && potratis.length <= 0 && <p>no potarits found</p>}
                     {isLoading && "Loading..."}
+                    {!isLoading && error && <p>{error}</p>}
                 </ul>
             </div>
         </section>
