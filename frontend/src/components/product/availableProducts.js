@@ -1,5 +1,4 @@
 import Card from "../ui/card";
-import ProductItem from "./productItem";
 
 const productsArr = [
     {
