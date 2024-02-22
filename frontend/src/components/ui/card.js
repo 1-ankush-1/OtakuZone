@@ -17,8 +17,8 @@ const Card = (props) => {
                     <div className="font-bold">{`₹${props.price?.toFixed(2)}`}</div>
                 </div>
                 <div className="flex items-center gap-1">
-                    <div className="font-bold">{`Rating: ${props.rating | 0}`}</div>
-                    <div className="font-bold">{`(${props.usersRated | 0})`}</div>
+                    <div className="font-bold">{`Rating: ${props.rating}`}</div>
+                    <div className="font-bold">{`(${props.usersRated})`}</div>
                 </div>
                 <Button type={"submit"} value={"Add To Cart"} />
             </div>

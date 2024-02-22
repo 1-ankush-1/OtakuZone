@@ -10,12 +10,27 @@ const Potraits = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch("https://fakestoreapi.com/products/category/jewelery");
+            const response = await fetch("https://ecomm-dfca0-default-rtdb.asia-southeast1.firebasedatabase.app/potraits.json");
             if (!response.ok) {
                 throw new Error("Something went wrong")
             }
+
             const potrait = await response.json();
-            setPotraits(potrait);
+            let newpotraits = [];
+
+            for (const key in potrait) {
+                if (Object.hasOwnProperty.call(potrait, key)) {
+                    newpotraits.push({
+                        id: key,
+                        title: potrait[key].title,
+                        description: potrait[key].description,
+                        price: potrait[key].price,
+                        category: potrait[key].category,
+                        image: potrait[key].image
+                    })
+                }
+            }
+            setPotraits([...newpotraits]);
         } catch (err) {
             console.log(err);
             setError(err.message);
@@ -34,13 +49,14 @@ const Potraits = () => {
                     <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Potraits</h2>
                 </div>
                 <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-2 lg:gap-12">
-                    {!isLoading && potratis?.map(prod =>
+                    {!isLoading && potratis.length > 0 && potratis?.map(prod =>
                     (<Card
+                        key={prod.id}
                         title={prod.title}
-                        price={prod.price}
+                        price={Number(prod.price)}
                         url={prod.image}
-                        rating={prod.rating.rate}
-                        usersRated={prod.rating.count}
+                        rating={prod?.rating?.rate | 0}
+                        usersRated={prod?.rating?.count | 0}
                     />))}
                     {!isLoading && !error && potratis.length <= 0 && <p>no potarits found</p>}
                     {isLoading && "Loading..."}
