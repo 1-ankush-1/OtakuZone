@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Input from "../../ui/input";
+import aboutServices from "../../../services/aboutService";
 
 const AboutForm = () => {
     const [collabIndividual, setCollabIndividual] = useState({
@@ -16,8 +17,7 @@ const AboutForm = () => {
 
     const handleCollabIndividual = (e) => {
         e.preventDefault();
-        console.log(collabIndividual)
-
+        aboutServices.askQuestions(collabIndividual);
     }
 
     return (

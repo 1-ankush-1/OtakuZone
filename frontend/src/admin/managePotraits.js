@@ -2,7 +2,7 @@ import { useEffect, useCallback, useReducer } from "react";
 import AddProduct from "./addProduct";
 import ShowProducts from "./showProducts";
 import PotraitReducer, { initialPotraitState } from "./reducers/potraitReducer";
-import potraitService from "./services/potraitService";
+import potraitService from "../services/potraitService"
 
 const ManagePotraits = () => {
     const [potraitState, dispatchPotraitAction] = useReducer(PotraitReducer, initialPotraitState);
