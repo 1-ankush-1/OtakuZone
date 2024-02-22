@@ -15,12 +15,10 @@ const Potraits = () => {
                 throw new Error("Something went wrong")
             }
             const potrait = await response.json();
-            setPotraits((prev) => {
-                return potrait
-            })
+            setPotraits(potrait);
         } catch (err) {
             console.log(err);
-            setError(err.message)
+            setError(err.message);
         }
         setIsLoading(false);
     }
@@ -35,8 +33,15 @@ const Potraits = () => {
                 <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Potraits</h2>
                 </div>
-                <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
-                    {!isLoading && potratis?.map(prod => <Card title={prod.title} price={prod.price} url={prod.image} />)}
+                <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-2 lg:gap-12">
+                    {!isLoading && potratis?.map(prod =>
+                    (<Card
+                        title={prod.title}
+                        price={prod.price}
+                        url={prod.image}
+                        rating={prod.rating.rate}
+                        usersRated={prod.rating.count}
+                    />))}
                     {!isLoading && !error && potratis.length <= 0 && <p>no potarits found</p>}
                     {isLoading && "Loading..."}
                     {!isLoading && error && <p>{error}</p>}
