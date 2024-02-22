@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Card from "../../../ui/card";
 
 const Potraits = () => {
@@ -6,7 +6,7 @@ const Potraits = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchAllPotratis = async () => {
+    const fetchAllPotratis = useCallback(async () => {
         setIsLoading(true);
         setError(null);
         try {
@@ -21,7 +21,7 @@ const Potraits = () => {
             setError(err.message);
         }
         setIsLoading(false);
-    }
+    }, []);
 
     useEffect(() => {
         fetchAllPotratis();
