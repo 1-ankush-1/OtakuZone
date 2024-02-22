@@ -2,8 +2,8 @@ import { useState } from "react";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 
-const AddProductForm = () => {
-    const [product, setProduct] = useState({
+const AddPotraitForm = (props) => {
+    const [potrait, setPotrait] = useState({
         title: "",
         price: "",
         description: "",
@@ -11,37 +11,27 @@ const AddProductForm = () => {
         image: "",
     });
 
-    const handleProductChange = (e) => {
+    const handlePotraitChange = (e) => {
         const { name, value } = e.target;
-        setProduct((prevProduct) => ({
-            ...prevProduct,
+        setPotrait((prevPotrait) => ({
+            ...prevPotrait,
             [name]: value,
         }));
     };
 
-    const handleProductFormSubmit = async (e) => {
+    const handlePotraitFormSubmit = async (e) => {
         e.preventDefault();
-        
-        const response = await fetch("https://ecomm-dfca0-default-rtdb.asia-southeast1.firebasedatabase.app/potraits.json", {
-            method: "POST",
-            body: JSON.stringify(product),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        if (response.ok) {
-            alert("Added data successfully");
-        }
+        props.onAddPotrait(potrait)
     };
 
     return (
-        <form onSubmit={handleProductFormSubmit}>
+        <form onSubmit={handlePotraitFormSubmit}>
             <Input
                 label="Title"
                 id="title"
                 name="title"
-                value={product.title}
-                onChange={handleProductChange}
+                value={potrait.title}
+                onChange={handlePotraitChange}
                 type="text"
                 placeholder="Enter your title"
             />
@@ -49,26 +39,31 @@ const AddProductForm = () => {
                 label="Price"
                 id="price"
                 name="price"
-                value={product.price}
-                onChange={handleProductChange}
+                value={potrait.price}
+                onChange={handlePotraitChange}
                 type="number"
                 placeholder="Enter the price"
             />
-            <Input
-                label="Description"
-                id="description"
-                name="description"
-                value={product.description}
-                onChange={handleProductChange}
-                type="text"
-                placeholder="Enter the description"
-            />
+            <div className="space-y-2">
+                <label className="text-sm" htmlFor="description">
+                    Description
+                </label>
+                <textarea
+                    id="description"
+                    name="description"
+                    className="w-full px-4 py-2 border rounded-md resize-none focus:outline-none focus:border-blue-500 min-h-[100px]"
+                    value={potrait.description}
+                    onChange={handlePotraitChange}
+                    type="text"
+                    placeholder="Enter the description"
+                ></textarea>
+            </div>
             <Input
                 label="Category"
                 id="category"
                 name="category"
-                value={product.category}
-                onChange={handleProductChange}
+                value={potrait.category}
+                onChange={handlePotraitChange}
                 type="text"
                 placeholder="Enter the category"
             />
@@ -76,14 +71,16 @@ const AddProductForm = () => {
                 label="Image"
                 id="image"
                 name="image"
-                value={product.image}
-                onChange={handleProductChange}
+                value={potrait.image}
+                onChange={handlePotraitChange}
                 type="text"
                 placeholder="Enter the image URL"
             />
-            <Button type="submit" value="Add Product" />
+            <div className="py-2 text-center">
+                <Button type="submit" value="Add Potrait" />
+            </div>
         </form>
     );
 };
 
-export default AddProductForm
+export default AddPotraitForm

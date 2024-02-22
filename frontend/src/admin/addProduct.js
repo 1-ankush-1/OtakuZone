@@ -1,9 +1,12 @@
-import AddProductForm from "./addProductForm";
+import AddPotraitForm from "./addProductForm";
 
-const AddProduct = () => {
+const AddProduct = (props) => {
     return (
-        <div>
-            <AddProductForm />
+        <div className="bg-white shadow-md rounded-lg p-6">
+            <AddPotraitForm
+                onAddPotrait={props.onAddPotrait}
+                onUpdatePotrait={props.onUpdatePotrait}
+            />
         </div>
     )
 }

@@ -4,7 +4,7 @@ import About from "../components/pages/about/about";
 import Cart from "../components/cart/cart";
 import Products from "../components/product/products"
 import Store from "../components/pages/store/store";
-import AddProduct from "../admin/addProduct";
+import ManagePotraits from "../admin/managePotraits";
 
 
 const Router = () => {
@@ -17,7 +17,7 @@ const Router = () => {
                     <Route path="/about" element={<About />} />
                     <Route path="/store" element={<Store />} />
                     <Route path="/" element={<Products />} />
-                    <Route path="/admin/add-product" element={<AddProduct />} />
+                    <Route path="/admin/add-product" element={<ManagePotraits />} />
                 </Routes>
             </main>
         </BrowserRouter>
