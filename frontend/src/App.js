@@ -1,16 +1,16 @@
 import './App.css';
-import Footer from './components/layout/footer/footer';
 import Router from './routes/routes';
 import CartContextProvider from './stores/cartContext';
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <CartContextProvider>
+
+    <CartContextProvider>
+      <BrowserRouter>
         <Router />
-      </CartContextProvider>
-      <Footer />
-    </>
+      </BrowserRouter>
+    </CartContextProvider>
   );
 }
 

@@ -5,15 +5,15 @@ import { useState } from "react";
 const headerItemList = [{
     id: "1",
     title: "HOME",
-    goto: "/"
+    goto: "/user"
 }, {
     id: "2",
     title: "STORE",
-    goto: "/store"
+    goto: "user/store"
 }, {
     id: "3",
     title: "ABOUT",
-    goto: "/about"
+    goto: "user/about"
 }]
 
 const HeaderItems = () => {
