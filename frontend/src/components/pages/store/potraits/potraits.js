@@ -52,7 +52,7 @@ const Potraits = () => {
                 <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-2 lg:gap-12">
                     {!isLoading && potratis.length > 0 && potratis?.map(prod =>
                     (
-                        <Link to={`../potrait-detail/${prod.id}`}>
+                        <Link to={`../potraits/potrait/${prod.id}`}>
                             <Card
                                 key={prod.id}
                                 title={prod.title}

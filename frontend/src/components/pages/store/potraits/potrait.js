@@ -24,7 +24,7 @@ const Potrait = () => {
 
     return (
         <div>   
-            potrait
+            individual potrait
         </div>
     )
 }
