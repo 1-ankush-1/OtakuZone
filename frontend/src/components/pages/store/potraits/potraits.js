@@ -60,7 +60,6 @@ const Potraits = () => {
                                 url={prod.image}
                                 rating={prod?.rating?.rate | 0}
                                 usersRated={prod?.rating?.count | 0}
-
                             />
                         </Link>
                     ))}
