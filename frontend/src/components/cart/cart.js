@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import ArrowLeftIcon from "../Icons/leftArrow";
+import ArrowIcon from "../Icons/Arrow.js";
 import CartItems from "./cartItems";
 import { CartContext } from "../../stores/cartContext.js"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Cart = () => {
+    const navigate = useNavigate();
     const [checkoutAmount, setCheckoutAmount] = useState(0);
     const [coupon, setCoupon] = useState("");
 
@@ -28,12 +29,20 @@ const Cart = () => {
         cartCtx.applyCouponCode(coupon);
     }
 
+    const goBack = ()=>{
+        navigate(-1)
+    }
+
     return (
         <div className="px-4 py-6 mx-auto max-w-6xl">
             <div className="flex justify-between items-center mb-6 ">
-                <Link className="flex items-center gap-2 text-sm font-medium underline ml-auto" to="/">
-                    <ArrowLeftIcon className="w-4 h-4 rotate-180 mr-1.5" />
+                <div className="flex items-center gap-2 text-sm font-medium underline cursor-pointer" onClick={goBack}>
+                    <ArrowIcon className="w-4 h-4 mr-1.5" />
+                    Back
+                </div>
+                <Link className="flex  gap-2 text-sm font-medium underline" to="/store">
                     Continue shopping
+                    <ArrowIcon className="w-4 h-4 rotate-180 mr-1.5" />
                 </Link>
             </div>
             <div className="grid gap-6">

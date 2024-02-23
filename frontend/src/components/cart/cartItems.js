@@ -1,15 +1,12 @@
 import CartItem from "./cartItem";
 
 const CartItems = (props) => {
-
-    const handleQuantityChange = (item) => {
-        console.log(item);
-        props.onAdd({ ...item })
+    const cartItemRemoveHandler = id => {
+        props.onRemove(id);
     }
 
-    const RemoveItem = (id) => {
-        console.log(id);
-        props.onRemove(id);
+    const cartItemAddHandler = item => {
+        props.onAdd({ ...item, quantity: 1 });
     }
 
     return (
@@ -18,8 +15,8 @@ const CartItems = (props) => {
                 <CartItem
                     key={item.id}
                     item={item}
-                    onQuantityChange={handleQuantityChange}
-                    onRemoveItem={RemoveItem}
+                    onAdd={cartItemAddHandler}
+                    onRemove={cartItemRemoveHandler}
                 />
             ))}
         </ul>

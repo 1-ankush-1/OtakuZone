@@ -1,5 +1,4 @@
-
-function ArrowLeftIcon(props) {
+function ArrowIcon(props) {
     return (
         <svg
             {...props}
@@ -20,4 +19,4 @@ function ArrowLeftIcon(props) {
 }
 
 
-export default ArrowLeftIcon
+export default ArrowIcon

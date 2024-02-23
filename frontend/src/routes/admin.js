@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import ManagePotraits from "../admin/managePotraits";
-import Products from "../components/product/products";
 
 const AdminRoutes = () => {
     return (

@@ -13,6 +13,7 @@ const CartReducer = (state, action) => {
 
     switch (action.type) {
         case "ADD_ITEM":
+            console.log(action.item)
             //update total
             updatedTotalAmount = Number(state.totalAmount) + Number(action.item.price) * Number(action.item.quantity);
             //find the item idx
@@ -31,20 +32,14 @@ const CartReducer = (state, action) => {
                 updatedItems = state.items.concat(action.item);
             }
 
-            if (Number(updatedTotalAmount) < 999) {
-                updatedShippingAmount = 99;
-            } else {
-                updatedShippingAmount = 0;
-            }
-
             return {
                 items: updatedItems,
                 totalAmount: updatedTotalAmount,
                 couponAmount: 0,
-                shippingAmount: updatedShippingAmount
-            };
+                shippingAmount: updatedTotalAmount > 1000 ? 0 : 99
+            };;
 
-        case "REDUCE_ITEM":
+        case "REMOVE_ITEM":
             //find the item idx
             existingCartItemIndex = state.items.findIndex(item => item.id === action.id);
             //check if item exist
@@ -62,73 +57,16 @@ const CartReducer = (state, action) => {
                     updatedItems[existingCartItemIndex] = updatedItem;
                 }
 
-                //update totalamount
+                //update totalquantity
                 updatedTotalAmount = updatedItems.reduce((prev, item) => prev + (item.price * item.quantity), 0);
-                if (Number(updatedTotalAmount) < 999) {
-                    updatedShippingAmount = 99;
-                } else {
-                    updatedShippingAmount = 0;
-                }
                 return {
                     items: updatedItems,
                     totalAmount: updatedTotalAmount,
                     couponAmount: 0,
-                    shippingAmount: updatedShippingAmount
+                    shippingAmount:  updatedTotalAmount > 1000 ? 0 : 99
                 };
             }
             return state
-
-        case "REMOVE_ITEM":
-            existingCartItemIndex = state.items.findIndex(item => item.id === action.id);
-            //check if item exist
-            existingCartItem = state.items[existingCartItemIndex];
-
-            if (existingCartItem) {
-                updatedItems = state.items.filter(item => item.id !== action.id);
-                //update totalamount
-                updatedTotalAmount = updatedItems.reduce((prev, item) => prev + (item.price * item.quantity), 0);
-                if (Number(updatedTotalAmount) < 999) {
-                    updatedShippingAmount = 99;
-                } else {
-                    updatedShippingAmount = 0;
-                }
-                return {
-                    items: updatedItems,
-                    totalAmount: updatedTotalAmount,
-                    couponAmount: 0,
-                    shippingAmount: updatedShippingAmount
-                };
-            }
-
-            return state;
-        case "INCREASE_ITEM":
-            //find the item idx
-            existingCartItemIndex = state.items.findIndex(item => item.id === action.item.id);
-
-            //check if item exist
-            existingCartItem = state.items[existingCartItemIndex];
-            if (existingCartItem) {
-                updatedItems = state.items.map(item => {
-                    if (item.id === action.item.id) {
-                        return { ...item, "quantity": action.item.quantity }
-                    }
-                    return item;
-                });
-                //update totalamount
-                updatedTotalAmount = updatedItems.reduce((prev, item) => prev + (item.price * item.quantity), 0);
-                if (Number(updatedTotalAmount) < 999) {
-                    updatedShippingAmount = 99;
-                } else {
-                    updatedShippingAmount = 0;
-                }
-                return {
-                    items: updatedItems,
-                    totalAmount: updatedTotalAmount,
-                    couponAmount: 0,
-                    shippingAmount: updatedShippingAmount
-                };
-            }
-            return state;
         case "APPLY_COUPON":
 
             return state;

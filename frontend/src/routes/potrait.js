@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Potrait from "../components/pages/store/potraits/potrait";
+import Potrait from "../components/pages/store/potraits/potrait/potrait";
 
 const PotraitRoutes = () => {
     return (
