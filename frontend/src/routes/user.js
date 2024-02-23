@@ -5,6 +5,7 @@ import Store from "../components/pages/store/store";
 import Products from "../components/product/products";
 import Footer from "../components/layout/footer/footer";
 import PotraitRoutes from "./potrait";
+import NotFound from "../components/pages/notFound";
 
 const UserRoutes = () => {
     return (
@@ -15,6 +16,7 @@ const UserRoutes = () => {
                 <Route path="/store" element={<Store />} />
                 <Route path="/potraits/*" element={<PotraitRoutes/>} />
                 <Route path="/" element={<Products />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
         </>

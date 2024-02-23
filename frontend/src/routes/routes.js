@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "../components/layout/header/header";
 import UserRoutes from "./user";
 import AdminRoutes from "./admin";
+import NotFound from "../components/pages/notFound";
 
 const Router = () => {
     return (
