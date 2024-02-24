@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AuthServices from '../../../services/authService';
 
 const Signup = () => {
+    const [isSending, setIsSending] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [number, setNumber] = useState('');
@@ -31,15 +33,25 @@ const Signup = () => {
         setPasswordError('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSending(true);
 
         if (password !== confirmPassword) {
             setPasswordError('Passwords do not match');
             return;
         }
 
-        // Continue with form submission
+        const response = await AuthServices.signup({
+            name, email, number, password
+        })
+
+        if (response.error) {
+            alert("something went wrong")
+        } else {
+            alert("successfully registered")
+        }
+        setIsSending(false);
     };
 
     return (
@@ -67,7 +79,7 @@ const Signup = () => {
                     <input type="password" id="confirmPassword" value={confirmPassword} onChange={handleConfirmPasswordChange} className="border border-gray-300 px-4 py-2 rounded-md w-full" />
                     {passwordError && <p className="text-red-500">{passwordError}</p>}
                 </div>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Signup</button>
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">{isSending ? "sending..." : "Signup"}</button>
             </form>
             <p className="mt-4">Already have an account? <Link to="../login" className="text-blue-500">Login</Link></p>
         </div>
