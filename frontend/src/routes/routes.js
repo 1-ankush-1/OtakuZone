@@ -3,6 +3,7 @@ import Header from "../components/layout/header/header";
 import UserRoutes from "./user";
 import AdminRoutes from "./admin";
 import NotFound from "../components/pages/notFound";
+import AuthRoutes from "./auth";
 
 const Router = () => {
     return (
@@ -10,6 +11,7 @@ const Router = () => {
             <Header />
             <main>
                 <Routes>
+                    <Route path="/auth/*" element={<AuthRoutes />} />
                     <Route path="/admin/*" element={<AdminRoutes />} />
                     <Route path="/*" element={<UserRoutes />} />
                 </Routes>
