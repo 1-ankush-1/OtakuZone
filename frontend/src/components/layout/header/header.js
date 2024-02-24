@@ -3,7 +3,6 @@ import HeaderItems from "./headerItems";
 import "../../../styles/header.css"
 import { useContext } from "react";
 import { AuthContext } from "../../../stores/authContext";
-import Button from "../../ui/button";
 import { useNavigate } from "react-router-dom";
 
 const AfterLogin = [{
@@ -14,10 +13,6 @@ const AfterLogin = [{
     id: "2",
     title: "STORE",
     goto: "/store"
-}, {
-    id: "3",
-    title: "ResetPassword",
-    goto: "/auth/reset-password"
 }]
 
 const BeforeLogin = [{
@@ -54,8 +49,8 @@ const Header = () => {
                         <div className="flex justify-between items-center lg:gap-6">
                             <HeaderItems items={headerItemList} />
                             <div className="lg:hidden text-white font-bold text-xl">OtakuZone</div>
+                            {isLoggedIn && <div className="hover:text-gray-300 text-lg text-white cursor-pointer" onClick={logoutUser}>LOGOUT</div>}
                             {isLoggedIn && <CartButton />}
-                            {isLoggedIn && <Button type="button" onHandleClick={logoutUser}>Logout</Button>}
                         </div>
                     </div>
                 </div>
