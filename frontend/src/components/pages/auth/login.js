@@ -31,7 +31,7 @@ const Login = () => {
 
         setIsSending(true);
         if (response.data !== null) {
-            authCtx.onAddToken(response.data.idToken)
+            authCtx.onLogin(response.data.idToken)
             alert("successful login");
             navigate("/")
         } else {

@@ -2,26 +2,27 @@ import React, { useState } from "react"
 
 export const AuthContext = React.createContext({
     token: "",
-    onAddToken: () => { },
-    onRemoveToken: () => { }
+    isLoggedIn: false,
+    onLogin: (token) => { },
+    onLogout: () => { }
 });
 
 
 const AuthContextProvider = (props) => {
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(null);
 
-    const handleAddToken = (newToken) => {
-        console.log("clicked");
-        setToken(newToken);
+    const UserIsLoggedIn = !!token
+
+    const handleAddToken = (token) => {
+        setToken(token);
     }
 
     const handleRemoveToken = () => {
-        console.log("removed");
-        setToken("");
+        setToken(null);
     }
 
     return (
-        <AuthContext.Provider value={{ token, onAddToken: handleAddToken, onRemoveToken: handleRemoveToken }}>
+        <AuthContext.Provider value={{ token, isLoggedIn: UserIsLoggedIn, onLogin: handleAddToken, onLogout: handleRemoveToken }}>
             {props.children}
         </AuthContext.Provider >
     )

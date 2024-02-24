@@ -37,14 +37,14 @@ const BeforeLogin = [{
 const Header = () => {
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
-    const token = authCtx.token;
-    const headerItemList = token ? AfterLogin : BeforeLogin;
+    const isLoggedIn = authCtx.isLoggedIn;
+    const headerItemList = isLoggedIn ? AfterLogin : BeforeLogin;
 
     const logoutUser = () => {
-        authCtx.onRemoveToken();
+        authCtx.onLogout();
         navigate("/")
     }
-    
+
     return (
         <>
             <nav className="sticky top-0 bg-black p-4 z-10">
@@ -54,8 +54,8 @@ const Header = () => {
                         <div className="flex justify-between items-center lg:gap-6">
                             <HeaderItems items={headerItemList} />
                             <div className="lg:hidden text-white font-bold text-xl">OtakuZone</div>
-                            {token && <CartButton />}
-                            {token && <Button type="button" onHandleClick={logoutUser}>Logout</Button>}
+                            {isLoggedIn && <CartButton />}
+                            {isLoggedIn && <Button type="button" onHandleClick={logoutUser}>Logout</Button>}
                         </div>
                     </div>
                 </div>
