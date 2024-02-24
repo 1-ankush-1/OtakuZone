@@ -16,8 +16,8 @@ const AfterLogin = [{
     goto: "/store"
 }, {
     id: "3",
-    title: "ABOUT",
-    goto: "/about"
+    title: "ResetPassword",
+    goto: "/auth/reset-password"
 }]
 
 const BeforeLogin = [{
