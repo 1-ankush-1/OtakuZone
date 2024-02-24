@@ -35,22 +35,24 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSending(true);
 
         if (password !== confirmPassword) {
             setPasswordError('Passwords do not match');
             return;
         }
 
+        setIsSending(true);
+
         const response = await AuthServices.signup({
             name, email, number, password
         })
-        if (response.data === null) {
-            console.log(response.data);
+
+        if (response.data !== null) {
             alert("successfully registered");
         } else {
-            alert("failed to fetch");
+            alert(response.error);
         }
+        
         setIsSending(false);
     };
 
