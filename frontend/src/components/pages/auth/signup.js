@@ -45,11 +45,11 @@ const Signup = () => {
         const response = await AuthServices.signup({
             name, email, number, password
         })
-
-        if (response.error) {
-            alert("something went wrong")
+        if (response.data === null) {
+            console.log(response.data);
+            alert("successfully registered");
         } else {
-            alert("successfully registered")
+            alert("failed to fetch");
         }
         setIsSending(false);
     };
