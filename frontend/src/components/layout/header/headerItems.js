@@ -2,21 +2,7 @@ import HamBurger from "../../Icons/hamBurger";
 import HeaderItem from "./headerItem";
 import { useState } from "react";
 
-const headerItemList = [{
-    id: "1",
-    title: "HOME",
-    goto: "/"
-}, {
-    id: "2",
-    title: "STORE",
-    goto: "/store"
-}, {
-    id: "3",
-    title: "ABOUT",
-    goto: "/about"
-}]
-
-const HeaderItems = () => {
+const HeaderItems = (props) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const toggleMenu = () => {
@@ -26,7 +12,7 @@ const HeaderItems = () => {
     return (
         <div className="lg:flex relative items-center gap-5">
             <ul className="lg:flex gap-5 hidden text-white">
-                {headerItemList.map((item) => (
+                {props.items.map((item) => (
                     <li key={item.id}>
                         <HeaderItem
                             href={item.goto}
@@ -41,7 +27,7 @@ const HeaderItems = () => {
             </div>
             {showMenu && (
                 <ul className="lg:hidden absolute flex flex-col bg-white rounded-sm">
-                    {headerItemList.map((item) => (
+                    {props.items.map((item) => (
                         <li key={item.id}>
                             <HeaderItem
                                 href={item.goto}

@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthServices from '../../../services/authService';
+import { AuthContext } from '../../../stores/authContext';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const authCtx = useContext(AuthContext);
     const [isSending, setIsSending] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,8 +31,9 @@ const Login = () => {
 
         setIsSending(true);
         if (response.data !== null) {
-            console.log(response.data.idToken)
+            authCtx.onAddToken(response.data.idToken)
             alert("successful login");
+            navigate("/")
         } else {
             alert(response.error);
         }
