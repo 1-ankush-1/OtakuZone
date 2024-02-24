@@ -11,12 +11,17 @@ export const AuthContext = React.createContext({
 
 const AuthContextProvider = (props) => {
     const initialState = localStorage.getItem("token");
+    const intialEmail = localStorage.getItem("email");
+
+    const [email, setEmail] = useState(intialEmail);
     const [token, setToken] = useState(initialState);
     const UserIsLoggedIn = !!token
 
-    const handleAddToken = (token) => {
+    const handleAddToken = (token, email) => {
         setToken(token);
+        setToken(email);
         localStorage.setItem("token", token)
+        localStorage.setItem("email", email)
     }
 
     const handleResetToken = (token) => {
@@ -27,6 +32,8 @@ const AuthContextProvider = (props) => {
     const handleRemoveToken = () => {
         setToken(null);
         localStorage.removeItem("token");
+        setEmail(null);
+        localStorage.removeItem("email");
     };
 
     //autolog out after 5 min
@@ -41,7 +48,7 @@ const AuthContextProvider = (props) => {
     }, [token]);
 
     return (
-        <AuthContext.Provider value={{ token, isLoggedIn: UserIsLoggedIn, onLogin: handleAddToken, onLogout: handleRemoveToken, onReset: handleResetToken }}>
+        <AuthContext.Provider value={{ email, token, isLoggedIn: UserIsLoggedIn, onLogin: handleAddToken, onLogout: handleRemoveToken, onReset: handleResetToken }}>
             {props.children}
         </AuthContext.Provider >
     )
