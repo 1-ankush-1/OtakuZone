@@ -26,8 +26,19 @@ const AuthContextProvider = (props) => {
 
     const handleRemoveToken = () => {
         setToken(null);
-        localStorage.removeItem("token")
-    }
+        localStorage.removeItem("token");
+    };
+
+    //autolog out after 5 min
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            handleRemoveToken();
+        }, 5 * 60 * 1000);
+
+        return () => {
+            clearTimeout(timeout);
+        };
+    }, [token]);
 
     return (
         <AuthContext.Provider value={{ token, isLoggedIn: UserIsLoggedIn, onLogin: handleAddToken, onLogout: handleRemoveToken, onReset: handleResetToken }}>
