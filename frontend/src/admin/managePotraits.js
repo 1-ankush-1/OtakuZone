@@ -10,20 +10,12 @@ const ManagePotraits = () => {
     const fetchAllPotratis = useCallback(async () => {
         dispatchPotraitAction({ type: "FETCH_POTRAITS_REQUEST" });
         try {
-            const potraits = await potraitService.getAll();
-            let newpotraits = [];
-            for (const key in potraits) {
-                if (Object.hasOwnProperty.call(potraits, key)) {
-                    newpotraits.push({
-                        id: key,
-                        title: potraits[key].title,
-                        description: potraits[key].description,
-                        price: potraits[key].price,
-                        category: potraits[key].category,
-                        image: potraits[key].image,
-                    });
-                }
+            const response = await potraitService.getAll();
+            console.log(response)
+            if (response.error) {
+                throw new Error(response.error);
             }
+            let newpotraits = response.data;
             dispatchPotraitAction({ type: "FETCH_POTRAITS_SUCCESS", payload: newpotraits });
         } catch (err) {
             console.log(err);
@@ -37,13 +29,12 @@ const ManagePotraits = () => {
 
     const handleAdd = async (potrait) => {
         const addedPotrait = await potraitService.post(potrait);
-        potrait.id = addedPotrait.name;
-        dispatchPotraitAction({ type: "ADD_POTRAIT", payload: potrait });
+        dispatchPotraitAction({ type: "ADD_POTRAIT", payload: addedPotrait.data });
     };
 
     const handleUpdate = async (potrait) => {
         const updatedPotrait = await potraitService.update(potrait);
-        dispatchPotraitAction({ type: "UPDATE_POTRAIT", payload: { id: updatedPotrait.id, updatedPotrait } });
+        dispatchPotraitAction({ type: "UPDATE_POTRAIT", payload: { id: updatedPotrait.id, data: updatedPotrait.data } });
     };
 
     const handleDelete = async (id) => {
@@ -52,7 +43,6 @@ const ManagePotraits = () => {
     };
 
     const { potraits, isLoading, error } = potraitState;
-    console.log(potraitState)
 
     return (
         <div className="flex justify-center p-4 gap-2">

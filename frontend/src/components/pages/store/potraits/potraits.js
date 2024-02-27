@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Card from "../../../ui/card";
 import { Link } from "react-router-dom";
+import PotraitService from "../../../../services/potraitService";
 
 const Potraits = () => {
     const [potratis, setPotraits] = useState([]);
@@ -10,32 +11,11 @@ const Potraits = () => {
     const fetchAllPotratis = useCallback(async () => {
         setIsLoading(true);
         setError(null);
-        try {
-            const response = await fetch("https://ecomm-dfca0-default-rtdb.asia-southeast1.firebasedatabase.app/potraits.json");
-            if (!response.ok) {
-                throw new Error("Something went wrong")
-            }
-
-            const potrait = await response.json();
-            let newpotraits = [];
-
-            for (const key in potrait) {
-                if (Object.hasOwnProperty.call(potrait, key)) {
-                    newpotraits.push({
-                        id: key,
-                        title: potrait[key].title,
-                        description: potrait[key].description,
-                        price: potrait[key].price,
-                        category: potrait[key].category,
-                        image: potrait[key].image
-                    })
-                }
-            }
-            setPotraits([...newpotraits]);
-        } catch (err) {
-            console.log(err);
-            setError(err.message);
+        const response = await PotraitService.getAll();
+        if (response.error) {
+            alert(response.error);
         }
+        setPotraits([...response.data]);
         setIsLoading(false);
     }, []);
 
