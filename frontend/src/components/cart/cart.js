@@ -29,7 +29,7 @@ const Cart = () => {
         cartCtx.applyCouponCode(coupon);
     }
 
-    const goBack = ()=>{
+    const goBack = () => {
         navigate(-1)
     }
 
@@ -51,6 +51,7 @@ const Cart = () => {
                         items={items}
                         onAdd={cartCtx.addItem}
                         onRemove={cartCtx.removeItem}
+                        onDelete={cartCtx.deleteItem}
                     />
                 </div>
                 <div className="grid gap-4 md:grid-cols-2">
@@ -80,11 +81,11 @@ const Cart = () => {
                     </div>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row text-base">
-                    <a className="flex-1" href="#">
+                    <Link className="flex-1" to="/wishlist">
                         <button className="w-full px-4 py-3 rounded-lg bg-blue-500 text-white" size="lg" >
                             Proceed to checkout
                         </button>
-                    </a>
+                    </Link>
                     <Link className="flex-1" to="/">
                         <button className="w-full px-4 py-3 rounded-lg  text-black border-gray-300 whitespace-nowrap" size="lg" variant="outline">
                             Continue shopping

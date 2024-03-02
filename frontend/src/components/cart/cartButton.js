@@ -7,11 +7,10 @@ import { NavLink } from "react-router-dom";
 const CartButton = () => {
 
     const cartCtx = useContext(CartContext);
-
     //getTotalQuantity
-    const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
+    const numberOfCartItems = cartCtx.items?.reduce((curNumber, item) => {
         return curNumber + Number(item.quantity);
-    }, 0)
+    }, 0) || 0;
 
     return (
         <>

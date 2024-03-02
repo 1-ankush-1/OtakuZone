@@ -9,14 +9,19 @@ const CartItems = (props) => {
         props.onAdd({ ...item, quantity: 1 });
     }
 
+    const deleteItemFromCart = id => {
+        props.onDelete(id);
+    }
+
     return (
         <ul>
-            {props.items.map((item) => (
+            {props.items?.map((item) => (
                 <CartItem
                     key={item.id}
                     item={item}
                     onAdd={cartItemAddHandler}
                     onRemove={cartItemRemoveHandler}
+                    onDelete={deleteItemFromCart}
                 />
             ))}
         </ul>

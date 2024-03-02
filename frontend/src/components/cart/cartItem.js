@@ -16,7 +16,7 @@ const CartItem = (props) => {
                     src={props.item.imageUrl}
                 />
                 <div className="flex  justify-center items-center gap-2 text-base">
-                    <button className="px-4 py-2 rounded-lg border border-gray-300" size="sm" variant="outline" onClick={() => props.onRemoveItem(props.item.id)}>
+                    <button className="px-4 py-2 rounded-lg border border-gray-300" size="sm" variant="outline" onClick={() => props.onDelete(props.item.id)}>
                         Remove
                     </button>
                     <button className="px-4 py-2 rounded-lg border border-gray-300 whitespace-nowrap" size="sm" variant="outline">Save for later</button>
