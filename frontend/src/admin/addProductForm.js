@@ -77,7 +77,7 @@ const AddPotraitForm = (props) => {
                 placeholder="Enter the image URL"
             />
             <div className="py-2 text-center">
-                <Button type="submit" value="Add Potrait" />
+                <Button type="submit" >Add</Button>
             </div>
         </form>
     );
