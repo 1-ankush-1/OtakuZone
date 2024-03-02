@@ -24,6 +24,7 @@ const Potrait = () => {
         <>
             {Object.keys(individualPotrait).length > 0 ?
                 <ProductCard
+                    key={potraitId}
                     category={individualPotrait.category}
                     description={individualPotrait.description}
                     image={individualPotrait.image}

@@ -29,19 +29,20 @@ const Potraits = () => {
                 <div className="space-y-3">
                     <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Potraits</h2>
                 </div>
-                <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-2 lg:gap-12">
+                <ul className="mx-auto grid max-w-7xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
                     {!isLoading && potratis.length > 0 && potratis?.map(prod =>
                     (
-                        <Link to={`../potraits/potrait/${prod.id}`}>
-                            <Card
-                                key={prod.id}
-                                title={prod.title}
-                                price={Number(prod.price)}
-                                url={prod.image}
-                                rating={prod?.rating?.rate | 0}
-                                usersRated={prod?.rating?.count | 0}
-                            />
-                        </Link>
+                        <li key={prod.id}>
+                            <Link to={`../potraits/potrait/${prod.id}`}>
+                                <Card
+                                    title={prod.title}
+                                    price={Number(prod.price)}
+                                    url={prod.image}
+                                    rating={prod?.rating?.rate | 0}
+                                    usersRated={prod?.rating?.count | 0}
+                                />
+                            </Link>
+                        </li>
                     ))}
                     {!isLoading && !error && potratis.length <= 0 && <p>no potarits found</p>}
                     {isLoading && "Loading..."}
