@@ -1,77 +1,38 @@
-const signupUser = async (user) => {
-    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDxuFYGPKR6ZSLAf52T2gImIGDfaFrigJU'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+const loginUser = async (user) => {
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ...user, returnSecureToken: true })
-        });
+        const auth = getAuth();
+        const userCredential = await signInWithEmailAndPassword(auth, user.email, user.password);
+        const userData = userCredential.user;
+        const token = await userData.getIdToken();
+        return { data: { email: userData.email, token: token }, error: null };
+    } catch (error) {
+        console.error('An error occurred in logging in user');
+        return { data: null, error: error.message };
+    }
+};
 
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.error.message);
-        }
-
-        const data = await response.json();
-        return { data, error: null };
+const signupUser = async (user) => {
+    try {
+        const auth = getAuth();
+        const userCredential = await createUserWithEmailAndPassword(auth, user.email, user.password);
+        const userData = userCredential.user;
+        const token = await userData.getIdToken();
+        return { data: { email: userData.email, token: token }, error: null };
     } catch (error) {
         console.error('An error occurred in registering user');
         return { data: null, error: error.message };
     }
 };
 
-const loginUser = async (user) => {
-    const url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDxuFYGPKR6ZSLAf52T2gImIGDfaFrigJU"
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ...user,
-                returnSecureToken: true,
-            })
-        });
-
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.error.message);
-        }
-
-        const data = await response.json();
-        return { data, error: null };
-    } catch (error) {
-        console.error('An error occurred in logging in user');
-        return { data: null, error: error.message };
-    }
-};
-
 const ResetPassword = async (credentials) => {
-    const url = "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDxuFYGPKR6ZSLAf52T2gImIGDfaFrigJU"
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ...credentials,
-                returnSecureToken: true,
-            })
-        });
-
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.error.message);
-        }
-
-        const data = await response.json();
-        return { data, error: null };
+        const auth = getAuth();
+        await sendPasswordResetEmail(auth, credentials.email);
+        return { data: null, error: null };
     } catch (error) {
-        console.error('An error occurred in logging in user');
+        console.error('An error occurred in resetting password');
         return { data: null, error: error.message };
     }
 }
