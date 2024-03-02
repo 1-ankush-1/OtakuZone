@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "./button";
+import StarIcon from "../Icons/star";
 
 const Card = (props) => {
     return (
@@ -17,10 +18,18 @@ const Card = (props) => {
                     <div className="font-bold">{`₹${props.price?.toFixed(2)}`}</div>
                 </div>
                 <div className="flex items-center gap-1">
-                    <div className="font-bold">{`Rating: ${props.rating}`}</div>
-                    <div className="font-bold">{`(${props.usersRated})`}</div>
+                    <div className="flex items-center gap-0.5">
+                        {[...Array(5)].map((_, index) => (
+                            <StarIcon
+                                key={index}
+                                className={`w-5 h-5 ${index < 3 ? 'filled' : ''}`}
+                                fill={index < 3 ? 'black' : 'none'}
+                            />
+                        ))}
+                    </div>
+                    <div className="font-bold">{`(${props.usersRated || 0})`}</div>
                 </div>
-                <Button type={"submit"} value={"Add To Cart"} />
+                <Button type={"submit"} >Add To Cart</Button >
             </div>
         </div>
     )
