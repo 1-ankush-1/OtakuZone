@@ -3,18 +3,30 @@ import StarIcon from "../Icons/star";
 import HeartIcon from "../Icons/heart";
 import Button from "./button";
 import { useNavigate } from "react-router-dom";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../stores/cartContext";
+import { AuthContext } from "../../stores/authContext";
 
 const ProductCard = (props) => {
+    const authCtx = useContext(AuthContext);
     const cartCtx = useContext(CartContext);
     const [product, setProduct] = useState({
-        id: "",
+        productId: "",
         title: "",
         price: "",
-        imageUrl: '',
-        quantity: "1",
+        imageUrl: "",
+        category: "",
+        quantity: "1"
     })
+
+    useEffect(() => {
+        const { image, price, title, category } = props;
+        setProduct((prev) => {
+            return {
+                ...prev, productId: props.id, title, price, imageUrl: image || "", category
+            };
+        })
+    }, [props.item])
 
     const handleProductInput = (e) => {
         setProduct((prev) => {
@@ -22,12 +34,10 @@ const ProductCard = (props) => {
         })
     }
 
-    useEffect(() => {
-        const { title, price, imageUrl } = props.item;
-        setProduct((prev) => {
-            return { ...prev, title, price, imageUrl, id: props.id };
-        })
-    }, [props.item])
+    const handleAddToCartAction = (e) => {
+        e.preventDefault()
+        cartCtx.addItem({ ...product, email: authCtx.email });
+    }
 
     const navigate = useNavigate();
 
@@ -35,16 +45,8 @@ const ProductCard = (props) => {
         navigate(-1);
     };
 
-    const handleAddToCartAction = (e) => {
-        e.preventDefault()
-        cartCtx.addItem(product);
-    }
-
-    // console.log(product)
-
     return (
         <>
-            {console.log(product)}
             <div className="flex p-4">
                 <ArrowIcon className="w-5 h-5 mr-1.5" onClick={goBack} />
             </div>
@@ -52,7 +54,7 @@ const ProductCard = (props) => {
                 <div className="grid gap-3 items-start">
                     <div className="grid gap-4">
                         <ProductImage
-                            image={props.item.image}
+                            image={props.image}
                         />
                     </div>
                 </div>
@@ -60,16 +62,16 @@ const ProductCard = (props) => {
                 <div className="grid gap-4 md:gap-10 items-start">
                     <div className="block md:flex items-start">
                         <Rating
-                            title={props.item.title}
-                            description={props.item.description}
-                            price={props.item.price}
-                            rate={props.item?.rating?.rate | 0}
-                            ratedBy={props.item?.rating?.count | 0}
+                            title={props.title}
+                            description={props.description}
+                            price={props.price}
+                            rate={props.rating.rate}
+                            ratedBy={props.rating.count}
                         />
                     </div>
                     <form className="grid gap-4 md:gap-10">
-                        {props?.item?.colors && <Color />}
-                        {props?.item?.sizes && <Size />}
+                        {props?.colors && <Color />}
+                        {props?.sizes && <Size />}
                         {<Quantity quantity={product.quantity} onQuantityChange={handleProductInput} />}
                         <div className="flex flex-col gap-2 min-[400px]:flex-row">
                             <Button type="button" onHandleClick={handleAddToCartAction}>Add to cart</Button>

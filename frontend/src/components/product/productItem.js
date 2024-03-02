@@ -4,7 +4,7 @@ import Card from "../ui/card";
 
 const ProductItem = (props) => {
     return (
-        <Card>
+        <Card >
             <img
                 alt={props.title}
                 className="aspect-square object-cover object-center h-3/5 w-full"
