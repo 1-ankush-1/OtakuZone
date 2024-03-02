@@ -3,53 +3,57 @@ import AddProduct from "./addProduct";
 import ShowProducts from "./showProducts";
 import PotraitReducer, { initialPotraitState } from "./reducers/potraitReducer";
 import potraitService from "../services/potraitService"
+import db from "../firebase-setup";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const ManagePotraits = () => {
     const [potraitState, dispatchPotraitAction] = useReducer(PotraitReducer, initialPotraitState);
 
-    const fetchAllPotratis = useCallback(async () => {
-        dispatchPotraitAction({ type: "FETCH_POTRAITS_REQUEST" });
-        try {
-            const response = await potraitService.getAll();
-            console.log(response)
-            if (response.error) {
-                throw new Error(response.error);
-            }
-            let newpotraits = response.data;
-            dispatchPotraitAction({ type: "FETCH_POTRAITS_SUCCESS", payload: newpotraits });
-        } catch (err) {
-            console.log(err);
-            dispatchPotraitAction({ type: "FETCH_POTRAITS_FAILURE", payload: err.message });
-        }
+    useEffect(() => {
+        // Subscribe to database updates
+        const unsubscribe = onSnapshot(collection(db, "potraits"), (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    const addedPotrait = change.doc.data();
+                    dispatchPotraitAction({ type: "ADD_POTRAIT", payload: { id: change.doc.id, ...addedPotrait } });
+                } else if (change.type === "modified") {
+                    const updatedPotrait = change.doc.data();
+                    dispatchPotraitAction({ type: "UPDATE_POTRAIT", payload: { id: change.doc.id, ...updatedPotrait } });
+                } else if (change.type === "removed") {
+                    const deletedPotraitId = change.doc.id;
+                    dispatchPotraitAction({ type: "DELETE_POTRAIT", payload: deletedPotraitId });
+                }
+            });
+        });
+
+        // Clean up subscription
+        return () => {
+            unsubscribe();
+        };
     }, []);
 
-    useEffect(() => {
-        fetchAllPotratis();
-    }, []);
 
     const handleAdd = async (potrait) => {
-        const addedPotrait = await potraitService.post(potrait);
-        dispatchPotraitAction({ type: "ADD_POTRAIT", payload: addedPotrait.data });
+        await potraitService.post(potrait);
     };
 
     const handleUpdate = async (potrait) => {
-        const updatedPotrait = await potraitService.update(potrait);
-        dispatchPotraitAction({ type: "UPDATE_POTRAIT", payload: { id: updatedPotrait.id, data: updatedPotrait.data } });
+        await potraitService.update(potrait);
     };
 
     const handleDelete = async (id) => {
         await potraitService.delete(id);
-        dispatchPotraitAction({ type: "DELETE_POTRAIT", payload: id });
     };
 
     const { potraits, isLoading, error } = potraitState;
 
     return (
-        <div className="flex justify-center p-4 gap-2">
+        <div className="sm:flex justify-center p-4 gap-2">
             <AddProduct
                 onAddPotrait={handleAdd}
                 onUpdatePotrait={handleUpdate}
             />
+            {console.log(potraits)}
             <ShowProducts
                 potraits={potraits}
                 onDeletePotrait={handleDelete}
