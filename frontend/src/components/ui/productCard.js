@@ -21,9 +21,10 @@ const ProductCard = (props) => {
 
     useEffect(() => {
         const { image, price, title, category } = props;
+        // console.log(props)
         setProduct((prev) => {
             return {
-                ...prev, productId: props.id, title, price, imageUrl: image || "", category
+                ...prev, productId: props.id, title, price, imageUrl: image || "https://prasadyash2411.github.io/ecom-website/img/Album%204.png", category
             };
         })
     }, [props.item])
@@ -54,7 +55,7 @@ const ProductCard = (props) => {
                 <div className="grid gap-3 items-start">
                     <div className="grid gap-4">
                         <ProductImage
-                            image={props.image}
+                            mainImage={props.image}
                         />
                     </div>
                 </div>
@@ -93,34 +94,63 @@ const ProductCard = (props) => {
 
 export default ProductCard;
 
-
 const ProductImage = (props) => {
+    const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+
+    const handleZoomIn = (e) => {
+        const { left, top, width, height } = e.target.getBoundingClientRect();
+        const x = (e.clientX - left) / width * 100;
+        const y = (e.clientY - top) / height * 100;
+
+        setZoomPosition({ x, y });
+    };
+
+    const handleZoomOut = () => {
+        setZoomPosition({ x: 0, y: 0 });
+    };
+
     return (
-        <>
+        <div className="relative">
             <img
                 alt="Product Image"
-                className="aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                height={600}
-                src="https://prasadyash2411.github.io/ecom-website/img/Album%204.png"
-                width={600}
+                className={`aspect-square object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800`}
+                style={{
+                    transform: `scale(${zoomPosition.x / 100 + 1}, ${zoomPosition.y / 100 + 1})`,
+                    transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
+                }}
+                src={props.mainImage}
+                onClick={handleZoomIn}
             />
             <div className="hidden md:flex gap-4 items-start">
-                {props?.images?.map(() =>
-                    <button className="border hover:border-gray-900 rounded-lg overflow-hidden transition-colors dark:hover:border-gray-50">
+                {props?.images?.map((image, index) => (
+                    <button
+                        key={index}
+                        className="border hover:border-gray-900 rounded-lg overflow-hidden transition-colors dark:hover:border-gray-50"
+                    >
                         <img
-                            alt="Preview thumbnail"
+                            alt={`Preview thumbnail ${index + 1}`}
                             className="aspect-square object-cover"
                             height={100}
-                            src="/placeholder.svg"
+                            src={image}
                             width={100}
                         />
-                        <span className="sr-only">View Image 1</span>
+                        <span className="sr-only">{`View Image ${index + 1}`}</span>
                     </button>
-                )}
+                ))}
             </div>
-        </>
-    )
-}
+            {zoomPosition.x !== 0 && (
+                <button
+                    className="absolute z-1 top-0 right-0 bg-black text-white p-2  border-none rounded-xl"
+                    onClick={handleZoomOut}
+                >
+                    zoomOut
+                </button>
+            )}
+        </div>
+    );
+};
+
+
 const Rating = React.memo((props) => {
     const starCount = props.rate;
     return (
@@ -131,7 +161,6 @@ const Rating = React.memo((props) => {
                 <p>{props.description}.</p>
             </div>
             <div className="flex items-center gap-4">
-
                 <div className="flex items-center gap-0.5">
                     {[...Array(starCount)].map((_, index) => (
                         <StarIcon key={index} className="w-5 h-5 fill-primary" />
