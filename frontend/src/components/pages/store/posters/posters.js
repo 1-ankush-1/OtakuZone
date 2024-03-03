@@ -1,43 +1,38 @@
 import Card from "../../../ui/card";
+import StoreSection from "../../../ui/storeSection";
 
 const productsArr = [
     {
+        id: 1,
         title: 'Colors',
         price: 100,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
+        image: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
     },
     {
+        id: 2,
         title: 'Black and white Colors',
         price: 50,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
+        image: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
     },
     {
+        id: 3,
         title: 'Yellow and Black Colors',
         price: 70,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
+        image: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
     },
 
     {
+        id: 4,
         title: 'Blue Color',
         price: 100,
-        imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
+        image: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
     }
 
 ]
+
 const Posters = () => {
     return (
-        <section id="posters" className="w-full py-8 md:py-16 lg:py-24 border-t">
-
-            <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-                <div className="space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Posters</h2>
-                </div>
-                <ul className="mx-auto grid max-w-5xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
-                    {productsArr.map(prod => <Card title={prod.title} price={prod.price} url={prod.imageUrl} />)}
-                </ul>
-            </div>
-
-        </section>
+        <StoreSection name="posters" header={"Posters"} products={productsArr} navigateTo={""} />
     )
 }
 
