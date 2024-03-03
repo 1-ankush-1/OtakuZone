@@ -43,7 +43,7 @@ const Header = () => {
     return (
         <>
             <nav className="sticky top-0 bg-black p-4 z-10">
-                <div className="container mx-auto">
+                <div className="container px-4 mx-auto max-w-6xl">
                     <div className="lg:flex justify-between items-center lg:px-10">
                         <div className="lg:block text-white font-bold text-xl hidden">OtakuZone</div>
                         <div className="flex justify-between items-center lg:gap-6">

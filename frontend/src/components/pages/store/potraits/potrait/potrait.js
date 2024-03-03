@@ -21,7 +21,7 @@ const Potrait = () => {
     }, [potraitId])
 
     return (
-        <>
+        <div className="px-4 my-6 mx-auto max-w-6xl">
             {Object.keys(individualPotrait).length > 0 ?
                 <ProductCard
                     key={potraitId}
@@ -34,7 +34,7 @@ const Potrait = () => {
                     id={potraitId}
                 /> : <p>"fetching product"</p>
             }
-        </>
+        </div>
     )
 }
 export default React.memo(Potrait);

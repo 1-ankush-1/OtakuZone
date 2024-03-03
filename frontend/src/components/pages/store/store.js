@@ -6,13 +6,13 @@ import Posters from "./posters/posters";
 
 const Store = () => {
     return (
-        <>
+        <div className="px-4 mx-auto max-w-6xl">
             <ProductSummary />
             <Clothing />
             <Potraits />
             <Posters />
             <Accessories />
-        </>
+        </div>
     )
 }
 export default Store;

@@ -5,12 +5,12 @@ import Testimonials from "./testimonials";
 
 const Products = () => {
     return (
-        <>
+        <div className="px-4 mx-auto max-w-6xl">
             <ProductSummary />
             <AvailableProducts />
             <PopularCharacter />
             <Testimonials />
-        </>
+        </div>
     )
 }
 

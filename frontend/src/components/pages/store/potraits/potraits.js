@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import Card from "../../../ui/card";
-import { Link } from "react-router-dom";
 import PotraitService from "../../../../services/potraitService";
 import StoreSection from "../../../ui/storeSection";
 
@@ -27,6 +25,7 @@ const Potraits = () => {
     return (<>
         {!isLoading &&
             <StoreSection
+                header={"Potraits"}
                 name="potraits"
                 products={potratis.slice(0, 3)}
                 navigateTo={"../potraits/potrait/"}

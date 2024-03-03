@@ -58,7 +58,7 @@ const Cart = () => {
                     <form className="grid gap-2" onSubmit={submitCouponCode}>
                         <div className="flex items-center gap-2 text-sm">
                             <input id="coupon" placeholder="Enter coupon code" className="py-2 border-gray-300 w-full" value={coupon} onChange={handleCouponCode} />
-                            <button type="submit" className="px-4 py-2 rounded-lg bg-blue-500 text-white">Apply</button>
+                            <button type="submit" className="px-4 py-2 rounded-lg bg-black text-white">Apply</button>
                         </div>
                     </form>
                     <div className="grid gap-2 text-sm">
@@ -82,12 +82,12 @@ const Cart = () => {
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row text-base">
                     <Link className="flex-1" to="/wishlist">
-                        <button className="w-full px-4 py-3 rounded-lg bg-blue-500 text-white" size="lg" >
+                        <button className="w-full px-4 py-3 rounded-lg bg-black text-white" size="lg" >
                             Proceed to checkout
                         </button>
                     </Link>
                     <Link className="flex-1" to="/">
-                        <button className="w-full px-4 py-3 rounded-lg  text-black border-gray-300 whitespace-nowrap" size="lg" variant="outline">
+                        <button className="w-full px-4 py-3 rounded-lg  text-black border-gray-300 whitespace-nowrap border" size="lg" variant="outline">
                             Continue shopping
                         </button>
                     </Link>
