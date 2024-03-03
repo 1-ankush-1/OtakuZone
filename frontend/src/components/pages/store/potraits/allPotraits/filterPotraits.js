@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import ArrowIcon from "../../../../Icons/Arrow";
 import SearchIcon from "../../../../Icons/search";
+import { useState } from "react";
 
 const FilterProduct = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
+    const [showSortOptions, setShowSortOptions] = useState(false);
 
     // Read query params
     const queryParams = new URLSearchParams(location.search);
@@ -46,7 +48,12 @@ const FilterProduct = (props) => {
                 return [...prev.sort((a, b) => a.createdAt - b.createdAt)];
             })
         }
+        handleShowSortOptions();
     };
+
+    const handleShowSortOptions = () => {
+        setShowSortOptions((prev) => !prev);
+    }
 
     return (
         <div className="container px-4 md:px-6 py-4">
@@ -69,18 +76,18 @@ const FilterProduct = (props) => {
                         </button>
                     </div>
                     <div className="relative">
-                        <button type="button" className="inline-flex justify-center items-center gap-1 text-sm font-medium underline cursor-pointer focus:outline-none" id="sort-menu" aria-expanded="false" aria-haspopup="true">
+                        <button type="button" className="inline-flex justify-center items-center gap-1 text-sm font-medium underline cursor-pointer focus:outline-none" id="sort-menu" aria-expanded="false" aria-haspopup="true" onClick={handleShowSortOptions}>
                             Sort by
                             {order === "asc" && <ArrowIcon className="w-4 h-4 mr-1.5 rotate-90" />}
                             {order === "desc" && <ArrowIcon className="w-4 h-4 mr-1.5 -rotate-90" />}
                         </button>
-                        <div className="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="sort-menu">
+                        {showSortOptions && <div className="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="sort-menu">
                             <div className="py-1" role="none">
                                 <button className="block w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" name="new" onClick={handleSortList}>Newest</button>
                                 <button className="block w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" name="asc" onClick={handleSortList}>Price: Low to High</button>
                                 <button className="block w-full text-left px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" name="desc" onClick={handleSortList}>Price: High to Low</button>
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
