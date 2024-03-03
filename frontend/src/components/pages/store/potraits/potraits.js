@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Card from "../../../ui/card";
 import { Link } from "react-router-dom";
 import PotraitService from "../../../../services/potraitService";
+import StoreSection from "../../../ui/storeSection";
 
 const Potraits = () => {
     const [potratis, setPotraits] = useState([]);
@@ -23,33 +24,18 @@ const Potraits = () => {
         fetchAllPotratis();
     }, [])
 
-    return (
-        <section id="potraits" className="w-full py-8 md:py-16 lg:py-24 border-t">
-            <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-                <div className="space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Potraits</h2>
-                </div>
-                <ul className="mx-auto grid max-w-7xl items-start gap-6 sm:grid-cols-3 lg:gap-12">
-                    {!isLoading && potratis.length > 0 && potratis?.map(prod =>
-                    (
-                        <li key={prod.id}>
-                            <Link to={`../potraits/potrait/${prod.id}`}>
-                                <Card
-                                    title={prod.title}
-                                    price={Number(prod.price)}
-                                    url={prod.image}
-                                    rating={prod?.rating?.rate | 0}
-                                    usersRated={prod?.rating?.count | 0}
-                                />
-                            </Link>
-                        </li>
-                    ))}
-                    {!isLoading && !error && potratis.length <= 0 && <p>no potarits found</p>}
-                    {isLoading && "Loading..."}
-                    {!isLoading && error && <p>{error}</p>}
-                </ul>
-            </div>
-        </section>
+    return (<>
+        {!isLoading &&
+            <StoreSection
+                name="potraits"
+                products={potratis.slice(0, 3)}
+                navigateTo={"../potraits/potrait/"}
+                seeMore={"../potraits"}
+            />
+        }
+        {isLoading && "Loading..."}
+        {!isLoading && error && <p>{error}</p>}
+    </>
     )
 }
 

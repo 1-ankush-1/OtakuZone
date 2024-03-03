@@ -10,7 +10,7 @@ const Store = () => {
             <ProductSummary />
             <Clothing />
             <Potraits />
-            <Posters  />
+            <Posters />
             <Accessories />
         </>
     )
