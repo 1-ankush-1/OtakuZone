@@ -18,7 +18,7 @@ const PotraitReducer = (state, action) => {
             return {
                 ...state,
                 potraits: state.potraits.map((potrait) =>
-                    potrait.id === action.payload.id ? action.payload.data : potrait
+                    potrait.id === action.payload.id ? action.payload : potrait
                 ),
             };
         case "DELETE_POTRAIT":

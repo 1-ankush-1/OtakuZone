@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Input from "../components/ui/input";
 import Button from "../components/ui/button";
 
@@ -11,6 +11,10 @@ const AddPotraitForm = (props) => {
         image: "",
     });
 
+    useEffect(() => {
+        setPotrait(props.defaultPotrait);
+    }, [props.defaultPotrait]);
+
     const handlePotraitChange = (e) => {
         const { name, value } = e.target;
         setPotrait((prevPotrait) => ({
@@ -21,7 +25,17 @@ const AddPotraitForm = (props) => {
 
     const handlePotraitFormSubmit = async (e) => {
         e.preventDefault();
-        props.onAddPotrait(potrait)
+        if (!potrait.title || !potrait.price || !potrait.category ) {
+            alert("Please fill all the fields");
+            return;
+        }
+
+        if (props.updateState) {
+            props.onUpdatePotrait(potrait);
+            return;
+        }
+
+        props.onAddPotrait(potrait);
     };
 
     return (
@@ -51,7 +65,7 @@ const AddPotraitForm = (props) => {
                 <textarea
                     id="description"
                     name="description"
-                    className="w-full px-4 py-2 border rounded-md resize-none focus:outline-none focus:border-blue-500 min-h-[100px]"
+                    className="w-full px-4 py-2 border rounded-md resize-none focus:outline-none focus:border-blue-500 min-h-[100px] text-xs"
                     value={potrait.description}
                     onChange={handlePotraitChange}
                     type="text"
@@ -76,11 +90,12 @@ const AddPotraitForm = (props) => {
                 type="text"
                 placeholder="Enter the image URL"
             />
-            <div className="py-2 text-center">
-                <Button type="submit" >Add</Button>
+            <div className="py-2 flex justify-center align-middle gap-2">
+                {props.updateState && <Button type="button" onHandleClick={props.onClearUpdateFlag}>Clear</Button>}
+                <Button type="submit">{props.updateState ? "Update" : "Add"}</Button>
             </div>
         </form>
     );
 };
 
-export default AddPotraitForm
+export default AddPotraitForm;

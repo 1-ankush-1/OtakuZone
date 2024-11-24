@@ -3,6 +3,7 @@ import db from "../firebase-setup";
 
 const updatePotraitDataBackend = async (id, potrait) => {
     try {
+        console.log("the data::::",id, potrait);
         const potraitRef = collection(db, "potraits");
         await setDoc(doc(potraitRef, id), potrait);
         return { data: true, error: null };
